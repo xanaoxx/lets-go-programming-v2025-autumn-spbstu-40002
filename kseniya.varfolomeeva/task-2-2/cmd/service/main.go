@@ -35,6 +35,7 @@ func (h *MaxHeap) Pop() interface{} {
 func main() {
 	var count int
 	_, err := fmt.Scan(&count)
+
 	if err != nil {
 		os.Exit(1)
 	}
@@ -43,6 +44,7 @@ func main() {
 
 	for index := 0; index < count; index++ {
 		_, err = fmt.Scan(&numbers[index])
+
 		if err != nil {
 			os.Exit(1)
 		}
@@ -50,6 +52,7 @@ func main() {
 
 	var order int
 	_, err = fmt.Scan(&order)
+
 	if err != nil {
 		os.Exit(1)
 	}

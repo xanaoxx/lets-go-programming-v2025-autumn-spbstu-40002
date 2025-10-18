@@ -3,6 +3,7 @@ package main
 import (
 	"container/heap"
 	"fmt"
+	"os"
 )
 
 type MaxHeap []int
@@ -12,7 +13,11 @@ func (h MaxHeap) Less(i, j int) bool { return h[i] > h[j] }
 func (h MaxHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
 
 func (h *MaxHeap) Push(x interface{}) {
-	*h = append(*h, x.(int))
+	value, ok := x.(int)
+	if !ok {
+		return
+	}
+	*h = append(*h, value)
 }
 
 func (h *MaxHeap) Pop() interface{} {
@@ -20,20 +25,30 @@ func (h *MaxHeap) Pop() interface{} {
 	n := len(old)
 	x := old[n-1]
 	*h = old[0 : n-1]
+
 	return x
 }
 
 func main() {
 	var dishCount int
-	fmt.Scan(&dishCount)
+	_, err := fmt.Scan(&dishCount)
+	if err != nil {
+		os.Exit(1)
+	}
 
 	dishes := make([]int, dishCount)
 	for i := range dishes {
-		fmt.Scan(&dishes[i])
+		_, err = fmt.Scan(&dishes[i])
+		if err != nil {
+			os.Exit(1)
+		}
 	}
 
 	var preferenceOrder int
-	fmt.Scan(&preferenceOrder)
+	_, err = fmt.Scan(&preferenceOrder)
+	if err != nil {
+		os.Exit(1)
+	}
 
 	heapInstance := &MaxHeap{}
 	heap.Init(heapInstance)
@@ -44,7 +59,12 @@ func main() {
 
 	var result int
 	for i := 0; i < preferenceOrder; i++ {
-		result = heap.Pop(heapInstance).(int)
+		value := heap.Pop(heapInstance)
+		intValue, ok := value.(int)
+		if !ok {
+			os.Exit(1)
+		}
+		result = intValue
 	}
 
 	fmt.Println(result)

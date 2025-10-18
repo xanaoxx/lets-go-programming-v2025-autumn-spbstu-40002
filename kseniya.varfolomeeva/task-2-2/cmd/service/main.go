@@ -5,17 +5,17 @@ import (
 	"fmt"
 )
 
-type MaxHeap []int
+type MinHeap []int
 
-func (h MaxHeap) Len() int           { return len(h) }
-func (h MaxHeap) Less(i, j int) bool { return h[i] > h[j] }
-func (h MaxHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h MinHeap) Len() int           { return len(h) }
+func (h MinHeap) Less(i, j int) bool { return h[i] < h[j] }
+func (h MinHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
 
-func (h *MaxHeap) Push(x interface{}) {
+func (h *MinHeap) Push(x interface{}) {
 	*h = append(*h, x.(int))
 }
 
-func (h *MaxHeap) Pop() interface{} {
+func (h *MinHeap) Pop() interface{} {
 	old := *h
 	n := len(old)
 	x := old[n-1]
@@ -25,30 +25,27 @@ func (h *MaxHeap) Pop() interface{} {
 
 func main() {
 	var N int
-	_, _ = fmt.Scan(&N)
+	fmt.Scan(&N)
 
 	dishes := make([]int, N)
 	for i := 0; i < N; i++ {
-		_, _ = fmt.Scan(&dishes[i])
+		fmt.Scan(&dishes[i])
 	}
 
 	var k int
-	_, _ = fmt.Scan(&k)
+	fmt.Scan(&k)
 
-	result := findKthSmallest(dishes, k)
-	fmt.Println(result)
-}
-
-func findKthSmallest(arr []int, k int) int {
-	h := &MaxHeap{}
+	h := &MinHeap{}
 	heap.Init(h)
 
-	for _, num := range arr {
+	for _, num := range dishes {
 		heap.Push(h, num)
-		if h.Len() > k {
-			heap.Pop(h)
-		}
 	}
 
-	return (*h)[0]
+	var result int
+	for i := 0; i < k; i++ {
+		result = heap.Pop(h).(int)
+	}
+
+	fmt.Println(result)
 }

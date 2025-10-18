@@ -6,14 +6,11 @@ import (
 	"os"
 )
 
-
 type MaxHeap []int
-
 
 func (h MaxHeap) Len() int           { return len(h) }
 func (h MaxHeap) Less(i, j int) bool { return h[i] > h[j] }
 func (h MaxHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
-
 
 func (h *MaxHeap) Push(x interface{}) {
 	value, ok := x.(int)
@@ -22,7 +19,6 @@ func (h *MaxHeap) Push(x interface{}) {
 	}
 
 	*h = append(*h, value)
-
 }
 
 func (h *MaxHeap) Pop() interface{} {
@@ -36,6 +32,7 @@ func (h *MaxHeap) Pop() interface{} {
 
 func main() {
 	var dishCount int
+
 	_, err := fmt.Scan(&dishCount)
 	if err != nil {
 		os.Exit(1)
@@ -69,9 +66,11 @@ func main() {
 	for i := 0; i < preferenceOrder; i++ {
 		value := heap.Pop(heapInstance)
 		intValue, ok := value.(int)
+
 		if !ok {
 			os.Exit(1)
 		}
+
 		result = intValue
 	}
 

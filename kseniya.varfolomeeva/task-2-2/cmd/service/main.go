@@ -34,14 +34,12 @@ func (h *MaxHeap) Pop() interface{} {
 
 func main() {
 	var count int
-
 	_, err := fmt.Scan(&count)
 	if err != nil {
 		os.Exit(1)
 	}
 
 	numbers := make([]int, count)
-
 	for index := 0; index < count; index++ {
 		_, err = fmt.Scan(&numbers[index])
 		if err != nil {
@@ -50,7 +48,6 @@ func main() {
 	}
 
 	var order int
-
 	_, err = fmt.Scan(&order)
 	if err != nil {
 		os.Exit(1)
@@ -64,14 +61,18 @@ func main() {
 	}
 
 	var result int
+	iteration := 0
 
-	for iteration := 0; iteration < order; iteration++ {
+	for iteration < order {
 		value := heap.Pop(heapInstance)
 		intValue, ok := value.(int)
+
 		if !ok {
 			os.Exit(1)
 		}
-                result = intValue
+
+		result = intValue
+		iteration++
 	}
 
 	fmt.Println(result)

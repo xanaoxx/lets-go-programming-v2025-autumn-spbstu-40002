@@ -71,8 +71,7 @@ func main() {
 		if !ok {
 			os.Exit(1)
 		}
-
-		result = intValue
+                result = intValue
 	}
 
 	fmt.Println(result)

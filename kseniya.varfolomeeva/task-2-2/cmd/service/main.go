@@ -19,7 +19,6 @@ func (h *MaxHeap) Push(x interface{}) {
 	if !ok {
 		return
 	}
-
 	*h = append(*h, value)
 }
 
@@ -28,23 +27,19 @@ func (h *MaxHeap) Pop() interface{} {
 	n := len(old)
 	x := old[n-1]
 	*h = old[0 : n-1]
-
 	return x
 }
 
 func main() {
 	var count int
 	_, err := fmt.Scan(&count)
-
 	if err != nil {
 		os.Exit(1)
 	}
 
 	numbers := make([]int, count)
-
 	for index := 0; index < count; index++ {
 		_, err = fmt.Scan(&numbers[index])
-
 		if err != nil {
 			os.Exit(1)
 		}
@@ -52,7 +47,6 @@ func main() {
 
 	var order int
 	_, err = fmt.Scan(&order)
-
 	if err != nil {
 		os.Exit(1)
 	}
@@ -65,15 +59,12 @@ func main() {
 	}
 
 	var result int
-
 	for iteration := 0; iteration < order; iteration++ {
 		value := heap.Pop(heapInstance)
 		intValue, ok := value.(int)
-
 		if !ok {
 			os.Exit(1)
 		}
-
 		result = intValue
 	}
 
